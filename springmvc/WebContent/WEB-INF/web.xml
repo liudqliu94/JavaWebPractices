@@ -3,23 +3,35 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
 http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
- 
+
+	<!-- 因为下面 SpringMVC 核心配置中url是/，会影响到静态资源的访问，这里就是支持 jpg 格式  --> 
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>*.jpg</url-pattern>
     </servlet-mapping>
-     
+
+	<!-- Spring MVC 核心配置，也可以在code中通过 WebApplicationInitializer 实现 -->
+	<!-- 官方文档：servlet-name 配置后，spring-mvc会在WEB-INF目录下查找名字为
+		[servlet-name]-servlet.xml 的配置文件，
+		并创建该配置文件中的bean对象，所以注意命名的一致性。
+		当然，也可以在通过在 init-param中指定 bean 的配置文件路径，多个路径逗号隔开	
+	 -->
     <servlet>
         <servlet-name>springmvc</servlet-name>
         <servlet-class>
             org.springframework.web.servlet.DispatcherServlet
         </servlet-class>
+<!--         <init-param> -->
+<!--         	<param-name>contextConfigLocation</param-name> -->
+<!--         	<param-value>filePath</param-value> -->
+<!--         </init-param> -->
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>springmvc</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+
     <filter>  
         <filter-name>CharacterEncodingFilter</filter-name>  
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>  
