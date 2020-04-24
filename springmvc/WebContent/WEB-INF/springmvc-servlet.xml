@@ -8,14 +8,18 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 	<!-- 开启注解扫描，会扫描指定包下的所有注解，可以通过增加参数来指定扫描或者不扫描特定的注解 -->
-    <context:component-scan base-package="controller, interceptor" />
+    <context:component-scan base-package="controller, interceptor, exception" />
 
+	<!-- 视图统一 -->
     <bean id="irViewResolver"
         class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/page/" />
         <property name="suffix" value=".jsp" />
     </bean>
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+
+	<!-- 文件处理 -->
+    <bean id="multipartResolver"
+    	class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
     
     <!-- 拦截器配置 -->
     <mvc:interceptors>   

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+    <mapper namespace="com.ldq.pojo">
+		<resultMap type="Category" id="categoryBean">
+			<id column="cid" property="id"/>
+			<result column="cname" property="name"/>
+			
+			<!-- 一对多关系 -->
+			<collection property="products" ofType="Product">
+				<id column="pid" property="id"/>
+				<result column="pname" property="name"/>
+				<result column="pprice" property="price"/>
+				<result column="pcid" property="cid"/>
+			</collection>
+		</resultMap>
+
+		<!-- 定义一对多查询 -->
+		<select id="selectCategoryAndProducts" resultMap="categoryBean">
+			select c.id as cid, c.name as cname, p.id as pid, p.name as pname, p.price as pprice, p.cid as pcid from category c left join product p on c.id = p.cid
+		</select>
+
+        <select id="listCategory" resultType="Category">
+            select * from   category 
+        </select>
+        
+        <insert id="insertCategoryByName" parameterType="Category">
+        	insert into category (name) values (#{name})
+        </insert>
+        
+        <delete id="deleteCategoryById" parameterType="Category">
+        	delete from category where id = #{id}
+        </delete>
+        
+        <select id="selectCategoryById" parameterType="int" resultType="Category">
+        	select * from category where id = #{id}
+        </select>
+        
+        <update id="updateCategoryById" parameterType="Category">
+        	update category set name=#{name} where id=#{id}
+        </update>
+        
+        <select id="selectCategoryByNameFuzzy" parameterType="string" resultType="Category">
+        	select * from category where name like concat('%', #{name}, '%')
+        </select>
+    </mapper>

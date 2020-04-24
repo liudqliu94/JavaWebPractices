@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+    <mapper namespace="com.ldq.pojo">
+		<resultMap type="Orders" id="odersBean">
+			<id column="oid" property="id"/>
+			<result column="ocode" property="code"></result>
+			
+			<collection property="ordersProduct" ofType="OrdersProduct">
+				<id column="opid" property="id"/>
+				<result column="opnumber" property="number"/>
+				<association property="product" javaType="Product">
+					<id column="pid" property="id"/>
+					<result column="pname" property="name"/>
+					<result column="pprice" property="price"/>
+					<result column="pcid" property="cid"/>
+				</association>
+			</collection>
+		</resultMap>
+		
+		<select id="getAllOrders" resultMap="odersBean">
+			select o.id as oid, o.code as ocode, op.id as opid, op.number as opnumber, p.id as pid, p.name as pname, p.price as pprice, p.cid as pcid
+				from orders o
+				left join orders_product op on o.id = op.oid
+				left join product p on p.id = op.pid
+		</select>
+    </mapper>

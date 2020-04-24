@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+    <mapper namespace="com.ldq.pojo">
+		<resultMap type="Product" id="productBean">
+			<id column="pid" property="id"/>
+			<result column="pname" property="name"/>
+			<result column="pprice" property="price"/>
+			<result column="pcid" property="cid"/>
+			<association property="category" javaType="Category">
+				<id column="cid" property="id"/>
+				<result column="cname" property="name"/>
+			</association>
+		</resultMap>
+		
+		<!-- 多对一关联查询 -->
+		<select id="selectProductCategory" resultMap="productBean">
+			select p.id as pid, p.name as pname, p.price as pprice, p.cid as pcid, c.id as cid, c.name as cname from product p left join category c on p.cid = c.id
+		</select>
+
+        <select id="selectAll" resultType="Product">
+            select * from product      
+        </select>
+    </mapper>
