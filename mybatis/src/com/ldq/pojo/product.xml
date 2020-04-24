@@ -21,6 +21,68 @@
 		</select>
 
         <select id="selectAll" resultType="Product">
-            select * from product      
+            select * from product
+            <where>
+            	<if test="name!=null">
+            		and name like concat('%', #{name}, '%')
+            	</if>
+            	<if test="price!=null">
+            		and price > #{price} 
+            	</if>
+            </where>
+        </select>
+        
+        <select id="selectWithBind" resultType="Product">
+        	<bind name="likename" value="'%' + name + '%'"/>
+        	select * from product where name like #{likename}
+        </select>
+        
+        <!-- choose when otherwise 实现 if else(没有 else 标签) -->
+        <select id="selectAllWithChoose" resultType="Product">
+            select * from product
+            <where>
+				<choose>
+					<when test="name!=null">
+						and name like concat('%', #{name}, '%')
+					</when>
+					<when test="price!=null">
+						and price > #{price}
+					</when>
+					<otherwise>
+						and id > 1
+					</otherwise>
+				</choose>
+            </where>
+        </select>
+        
+        
+        <update id="updateProduct">
+        	update product
+        	<set>
+        		<if test="name!=null">name = #{name},</if>
+        		<if test="price!=null">price = #{price},</if>
+        	</set>
+        	<where>
+        		<if test="id!=null">and id = #{id}</if>
+        	</where>
+        </update>
+        <!-- 使用 trim 替换 set 和 where -->
+        <update id="updateProductUseTrim">
+        	update product
+        	<trim prefix="SET" suffixOverrides=",">
+        		<if test="name!=null">name = #{name},</if>
+        		<if test="price!=null">price = #{price},</if>
+        	</trim>
+        	<trim prefix="WHERE" prefixOverrides="AND | OR">
+        		<if test="id!=null">and id = #{id}</if>
+        	</trim>
+        </update>
+        
+        <!-- 范围查询 -->
+        <select id="selectInRange" resultType="Product">
+        	select * from product where id in
+        	<foreach item="item" separator="," open="(" close=")" collection="list">
+        		#{item}
+        	</foreach>
         </select>
     </mapper>
