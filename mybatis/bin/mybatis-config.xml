@@ -26,5 +26,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         <mapper class="com.ldq.mapper.CategoryMapper"/>
         <mapper class="com.ldq.mapper.OrdersMapper"/>
         <mapper class="com.ldq.mapper.OrdersProductMapper"/>
+        <mapper class="com.ldq.mapper.CategoryMapperUseDynaSQL"/>
     </mappers>
 </configuration>

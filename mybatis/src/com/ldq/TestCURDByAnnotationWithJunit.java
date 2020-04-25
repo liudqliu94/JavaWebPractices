@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.ldq.mapper.CategoryMapper;
+import com.ldq.mapper.CategoryMapperUseDynaSQL;
 import com.ldq.mapper.OrdersMapper;
 import com.ldq.mapper.ProductMapper;
 import com.ldq.pojo.Category;
@@ -122,6 +123,15 @@ public class TestCURDByAnnotationWithJunit {
 			for (OrdersProduct op : o.getOrdersProduct()) {
 				System.out.println(op.getProduct() + ": " + op.getNumber());
 			}
+		}
+	}
+	
+	@Test
+	public void testGetAllCategoryUseDynamicSQL() {
+		CategoryMapperUseDynaSQL cMapper = session.getMapper(CategoryMapperUseDynaSQL.class);
+		List<Category> results = cMapper.getAll();
+		for (Category c : results) {
+			System.out.println(c);
 		}
 	}
 }
