@@ -33,16 +33,10 @@
 1. mysql数据库
 2. sql脚本：创建数据库，创建表格，插入初始数据。表格包括：品类表，产品表，订单表，订单产品表，一个品类包含多个产品，一个产品对应一个品类；一个产品可能包含在多个订单中，一个订单可能包含多个产品；订单、产品是一个多对多关系，因此引入一个中间表，转换成两个多对一关系。
 3. 针对基本操作进行测试，对比数据库查看结果。
-
-
-使用上，主要关注 SqlSessionFactory 以及 Mapper，两者都有 XML 配置以及 code 配置的方式，其中 Mapper 的配置可以通过注解形式而不走 XML 配置的形式，但是注解较难应付复杂的 SQL 语句，因此后面的 code 中都已 xml 配置做练习。
-```java
-package org.mybatis.example;
-public interface BlogMapper {
-    @Select("SELECT * FROM blog WHERE id = #{id}")
-    Blog selectBlog(int id);
-}
-```
+4. 针对 xml 以及 注解 两种方式分别做demo
+5. 分页 PageHelper
+6. log4j 开启日志
+7. 缓存 [美团技术团队有一篇文章比较详细，其中是不建议使用mybatis自带的缓存的，同时建议将一级缓存设置为 statement](https://tech.meituan.com/2018/01/19/mybatis-cache.html)
 
 
 

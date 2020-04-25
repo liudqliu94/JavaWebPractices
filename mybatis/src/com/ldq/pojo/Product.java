@@ -1,8 +1,11 @@
 package com.ldq.pojo;
 
-// 多个 product 对应 一个 category
-public class Product {
+import java.io.Serializable;
 
+// 多个 product 对应 一个 category
+public class Product implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String name;
 	private Float price;

@@ -12,6 +12,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.ldq.mapper.CategoryMapper;
 import com.ldq.mapper.CategoryMapperUseDynaSQL;
 import com.ldq.mapper.OrdersMapper;
@@ -45,7 +47,15 @@ public class TestCURDByAnnotationWithJunit {
 	@Test
 	public void testSelectAll() {
 		ProductMapper pMapper = session.getMapper(ProductMapper.class);
+		
+		//  π”√∑÷“≥
+		PageHelper.offsetPage(0, 2);
+		
 		List<Product> results = pMapper.getAllProduct();
+		
+		PageInfo page = new PageInfo<>(results);
+		System.out.println(page.getPages());
+		
 		for (Product p :  results) {
 			System.out.println(p);
 		}
