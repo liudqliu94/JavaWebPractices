@@ -7,4 +7,38 @@
 
 	<!-- 加载配置文件 -->
 	<context:property-placeholder location="classpath:db.properties"/>
+	
+	<!-- 持久层相关配置 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+		<property name="driverClassName" value="${dataSource.driver}"/>
+		<property name="url" value="${dataSource.url}"/>
+		<property name="username" value="${dataSource.username}"/>
+		<property name="password" value="${dataSource.password}"/>
+				<!-- 配置初始化大小、最小、最大 -->
+		<property name="maxActive" value="20" />
+		<property name="initialSize" value="20" />
+		<property name="minIdle" value="20" />
+		<!-- 配置获取连接等待超时的时间 -->
+		<property name="maxWait" value="60000" />
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+		<property name="poolPreparedStatements" value="true" />
+		<property name="maxOpenPreparedStatements" value="20" />
+		<!-- 配置监控统计拦截的filters,和防sql注入 -->
+		<property name="filters" value="stat,wall" />
+	</bean>
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:mybatisConfig.xml"/>
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.ldq.mapper"/>
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+	</bean>
 </beans>
