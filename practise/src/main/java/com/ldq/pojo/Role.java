@@ -7,6 +7,13 @@ public class Role {
 	
 	private Integer id;
 	private String name;
+	private Integer uuid;
+	public Integer getUuid() {
+		return uuid;
+	}
+	public void setUuid(Integer uuid) {
+		this.uuid = uuid;
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -22,7 +29,7 @@ public class Role {
 
 	@Override
 	public String toString() {
-		return "Role [id=" + id + ", name=" + name + "]";
+		return "Role [id=" + id + ", name=" + name + ", uuid=" + uuid + "]";
 	}
 
 }

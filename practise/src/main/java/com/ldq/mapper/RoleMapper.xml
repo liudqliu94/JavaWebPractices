@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ldq.mapper.RoleMapper">
+	<insert id="addRole">
+		INSERT INTO roles
+		(uuid, name)
+		VALUES
+		(#{uuid}, #{name})
+	</insert>
+	
+	<delete id="deleteRole">
+		DELETE FROM roles WHERE id = #{id}
+	</delete>
+	
+	<select id="getAllRoles" resultType="Role">
+		SELECT * FROM roles
+	</select>
+	
+	<update id="updateRole">
+		UPDATE roles SET uuid=#{uuid}, name=#{name} WHERE id=#{id}
+	</update>
+</mapper>

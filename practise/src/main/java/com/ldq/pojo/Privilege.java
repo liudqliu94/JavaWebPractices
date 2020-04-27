@@ -11,7 +11,7 @@ public class Privilege {
 	private Integer id;
 	private String name;
 	private String url;
-	private String pid;
+	private Integer pid;
 	private Integer isParent;
 	private List<Privilege> chilldPrivilege = new LinkedList<>();
 
@@ -27,10 +27,10 @@ public class Privilege {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getPid() {
+	public Integer getPid() {
 		return pid;
 	}
-	public void setPid(String pid) {
+	public void setPid(Integer pid) {
 		this.pid = pid;
 	}
 	public List<Privilege> getChilldPrivilege() {
